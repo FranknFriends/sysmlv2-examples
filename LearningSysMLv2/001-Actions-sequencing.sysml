@@ -1,27 +1,25 @@
-part def bRcCar {
-  part battery {
-    attribute isFull : ScalarValues::Boolean;
-  }
-   
-  action charCar {
-     
-     action plugInCharger;
-     action chargeBattery;
-    
-    first start;
-    then plugInCharger;
-    
-    first plugInCharger ;
-    then decide;
-      if battery.isFull then m1;
-      else chargeBattery;
-  
-   
-    first chargeBattery then m1;
+action def test {
+	
+// Action declarations: define the action usages a, b, c, d as steps within this action
+// (their execution order is specified later using 'first ... then ...')
+	action a; 
+	action b;
+	action c;
+	action d;
+	
+	//Inline Notation first ... then ...y ;
+	first start then a;
+	first a then b;
+	
+	succession 'from b to c' first b then c;  
 
-	 merge m1;
-    then done;
+	//line notation 
+	//
+	first c;
+	then d; 
+	
+	first d;
+	then done; // 'start'/'done' are keywords (built-in actions), not user-defined elements.
+		
 
-  
-  }
-}
+	}
